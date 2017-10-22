@@ -5,6 +5,7 @@ from datetime import datetime, date
 from django.utils import timezone
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9\.\+_-]+@[a-zA-Z0-9\._-]+\.[a-zA-Z]*$')
+DATE_REGEX = re.compile(r'^\d{4}-\d{1,2}-\d{1,2}$')
 
 class UserManager(models.Manager):
     def user_validation(self, postdata):
@@ -19,6 +20,8 @@ class UserManager(models.Manager):
             errors['email'] = "Email already in use"
         if len(postdata['password']) < 8:
             errors['password'] = "Password must be 8 characters long"
+        if not DATE_REGEX.match(postdata['dob']):
+            errors['date'] = "Date in wrong format, (YYYY-MM-DD)"
         if not postdata['password'] == postdata['confirm']:
             errors['confirm'] = "Password and confirm password must match"
         return errors
