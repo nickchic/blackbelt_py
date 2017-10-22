@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Your Friends</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'users/css/main.css' %}" media="screen" title="no title"  charset="utf-8">
+    </head>
+    <body>
+        <div id='header'>
+            <span><a href='/users/home'>Home</a></span>
+            <span><a href='/friends'>Friends</a></span>
+            <span><a href='/logout'>Log Out</a></span>
+        </div>
+        <div id='content'>
+            <h3>Hello {{logged_in_user.first_name}}!</h3>
+            {% if not has_friends %}
+                <p>You have no friends</p>
+            {% else %}
+                <p>Here is a list of your friends:</p>
+                <table id='friends'>
+                    <tr>
+                        <th align="left">Name</th>
+                        <th align="left">Action</th>
+                    </tr>
+                    {% for friend in friends.all %}
+                    <tr>
+                        <td>{{ friend.first_name }} {{ friend.last_name }}</td>
+                        <td><a href='users/{{friend.id}}'>View Profile</a> <a href='remove/{{friend.id}}'>Remove Friend</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+            {% if has_friends %}
+                <p>Other users not on your friend's list:</p>
+            {% else %}
+                <p>Add some friends!</p>
+            {% endif %}
+            <table id='others'>
+                <tr>
+                    <th align="left">Name</th>
+                    <th align="left">Action</th>
+                </tr>
+                {% for user in others.all %}
+                <tr>
+                    <td><a href='users/{{user.id}}'>{{ user.first_name }}</a></td>
+                    <td><a href='add/{{user.id}}'>Add Friend</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </body>
+</html>
