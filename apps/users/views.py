@@ -114,6 +114,4 @@ def remove_friend(request, user_id):
         friendship_to_remove_a.delete()
         friendship_to_remove_b = Friendship.objects.get(friend_a_id=get_logged_in_user(request).id, friend_b_id=user_id)
         friendship_to_remove_b.delete()
-        print 'a', friendship_to_remove_a.id
-        print 'b', friendship_to_remove_b.id
     return redirect('/friends')

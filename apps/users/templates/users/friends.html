@@ -43,7 +43,7 @@
                 </tr>
                 {% for user in others.all %}
                 <tr>
-                    <td><a href='users/{{user.id}}'>{{ user.first_name }}</a></td>
+                    <td><a href='users/{{user.id}}'>{{ user.first_name }} {{ user.last_name }}</a></td>
                     <td><a href='add/{{user.id}}'>Add Friend</a></td>
                 </tr>
                 {% endfor %}
