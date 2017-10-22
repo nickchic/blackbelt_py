@@ -82,13 +82,10 @@ def user_page(request, user_id):
 def friends(request):
     if logged_in(request):
         logged_in_user = get_logged_in_user(request)
-        print 'count',logged_in_user.friends.count()
         if logged_in_user.friends.count() == 0:
-            print 'grr'
             has_friends = False
         else:
             has_friends = True
-        print has_friends
         context = {
             'logged_in_user': logged_in_user,
             'friends':logged_in_user.friends,
